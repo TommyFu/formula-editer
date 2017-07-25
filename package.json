@@ -1,0 +1,13 @@
+{
+  "name": "formula-editer",
+  "version": "1.0.0",
+  "description": "web formula editer",
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "author": "liok3187@gmail.com",
+  "license": "MIT"
+}

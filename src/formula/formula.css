@@ -1,0 +1,161 @@
+html{
+	width: 100%;
+  height: 100%;
+}
+body{
+	width: 60%;
+  height: 100%;
+  margin: 0px auto;
+}
+
+.formula-section{
+  width: 100%;
+}
+.CodeMirror {
+  width: calc(100% - 120px);
+  width: -ms-calc(100% - 120px);
+  width: -o-calc(100% - 120px);
+  width: -moz-calc(100% - 120px);
+  width: -webkit-calc(100% - 120px);
+  height: 100px;
+  border-top: 10px solid #58ACED;
+  border-bottom: 1px solid #58ACED;
+  margin-top:  20px;
+  float: left;
+}
+.formula-btns{ 
+  width: 100px;
+  float: right;
+}
+.formula-btn{
+  width: 100px;
+  height: 50px;
+  float: left;
+}
+.formula-btn-calculate{
+  font-size: 20px;
+  margin-top:  20px;
+  border: none;
+  background: #C0DEED;
+}
+.formula-btn-format{
+  font-size: 15px;
+  margin-top: 11px;
+  border: none;
+  background: #0085B5;
+}
+.formula-title{
+  width: 80px;
+  height: 30px;
+  float: left;
+}
+.formula-title:focus{
+  border: none;
+  outline: none;
+}
+.calculate-section{
+  border-top: 10px solid #C0DEED;
+  width: 100%;
+  margin-top: 20px;
+  float: left;
+}
+.calculate-title{
+  font-size: 20px;
+  margin-top:  10px;
+  border: none;
+  background: #C0DEED;
+}
+.format-section{
+  border-top: 10px solid #0085B5;
+  width: 100%;
+  margin-top: 16px;
+  float: left;
+}
+.format-title{
+  font-size: 12px;
+  margin-top:  10px;
+  border: none;
+  background: #0085B5;
+}
+
+.helps-section{
+  border-top: 10px solid #8DBFD9;
+  width: 100%;
+  margin-top: 16px;
+  float: left;
+}
+
+.cm-member {
+	vertical-align: middle;
+	max-width: 75px;
+	box-shadow: 0 0 0 2px rgb(128,129,132);
+	overflow: hidden;
+	border-radius: 2px;
+	font-size: 13px;
+	background-color: rgb(128,129,132);
+	color: white;
+	padding: 0px 2px;
+}
+.cm-constant {
+	vertical-align: middle;
+	font-family: lato;
+	/* font-weight: bold; */
+	color: rgb(88,89,91);
+	font-size: 13px;
+}
+.cm-condition {
+	vertical-align: middle;
+	font-family: lato;
+	color: rgb(51,145,213);
+	font-weight: bold;
+	font-size: 13px;
+	padding: 0 5px;
+}
+.cm-function {
+	vertical-align: middle;
+ 	font-family: lato;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/*font-style: italic;*/
+	font-weight: bold;
+	color: rgb(51, 145, 213) ;
+	font-size: 13px;
+}
+.cm-arithmetic {
+	vertical-align: middle;
+	font-family: lato;
+	color: rgb(88, 89, 91);
+	/* font-weight: bold; */
+	font-size: large;
+	font-size: 17px;
+	padding: 0 5px;
+}
+.cm-bool {
+	vertical-align: middle;
+	font-family: lato;
+	color: rgb(119, 97, 198);
+	font-weight: bold;
+	font-size: 15px;
+	padding: 0 5px;
+}
+.cm-comma {
+	vertical-align: middle;
+	font-family: lato;
+	color: rgb(119, 97, 198);
+	font-weight: bold;
+	padding: 0 5px;
+}
+.cm-bracket {
+	vertical-align: middle;
+	font-family: lato;
+	color: rgb(51,145,213) ;
+	font-weight: bold;
+	padding: 0 5px;
+}
+.cm-error {
+	vertical-align: middle;
+	font-family: lato;
+	color : black;
+	border-bottom: 2px solid rgb(242, 66, 105); 
+	font-size: 13px;
+}
