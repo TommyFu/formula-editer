@@ -1,6 +1,13 @@
-'use strict';
-
-define([], function() {
+(function(mod) {
+  if (typeof exports == "object" && typeof module == "object") { // CommonJS
+    module.exports = {
+      util: mod()
+    }
+  } else if (typeof define == "function" && define.amd) { // AMD
+    define([], mod);
+  }
+})(function() {
+  'use strict';
   let util = {
     _aLogicFn : [ 'and', 'or' ],
     _aFunction : [ 'log10', 'log', 'if', 'float', 'int', 'power', 'abs' ],

@@ -3,11 +3,22 @@
   "version": "1.0.0",
   "description": "web formula editer",
   "scripts": {
+    "test": "ava --verbose"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "requirejs": "^2.3.4",
+    "requirejs-mock": "^1.0.1",
+    "ava": "^0.20.0"
   },
   "author": "liok3187@gmail.com",
-  "license": "MIT"
+  "license": "MIT",
+  "ava": {
+    "files": [
+      "./src/test/*.js"
+    ],
+    "source": [
+      "**/*.{js}"
+    ]
+  }
 }
