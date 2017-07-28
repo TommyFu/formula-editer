@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "web formula editer",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "ava --verbose",
+    "debugTest": "node --inspect --debug-brk node_modules/ava/profile.js test/formulaTest.js"
   },
   "dependencies": {},
   "devDependencies": {
