@@ -9,11 +9,26 @@
   function util(){
     return {
       _aLogicFn : [ 'and', 'or' ],
-      _aFunction : [ 'log10', 'log', 'if', 'float', 'int', 'power', 'abs' ],
-
+      _aFunction : [ 'if', 'round', 'power', 'abs', 'sqrt'],
+      _calcFn : {
+        'round': (op) => {
+          return op.round();
+        },
+        'power': (op1, op2) => {
+          return op1.round(op2);
+        },
+        'abs': (op) => {
+          return op.abs();
+        },
+        'sqrt': (op) => {
+          return op.sqrt();
+        }
+      },
+      
       REGEX : {
         member : /^([^,:;'=\[\]]+)$/,
-        memberWithBracket : /^\[[^,:;'=\[\]]+\]/
+        memberWithBracket : /^\[[^,:;'=\[\]]+\]/,
+        memberWithBracketAndMinus : /^\-?\[[^,:;'=\[\]]+\]$/
       },
 
       errMsg: {
@@ -56,6 +71,24 @@
         FORMULA_MEMBER_NOT_EXIST: 'Member {0} does not exist.',
         //"log(4) log(4)"
         FORMULA_OP_MISS: 'Missing operator.'
+      },
+
+      /**
+       * [aaa] --> aaa
+       * 
+       * @param {String} sMember
+       */
+      removeMemberBrackets : function(sMember) {
+        if (sMember.indexOf('[') !== -1 && sMember.indexOf(']') !== -1) {
+          sMember = sMember.trim();
+          if (sMember[0] === "[") {
+            sMember = sMember.substring(1);
+          }
+          if (sMember[sMember.length - 1] === "]") {
+            sMember = sMember.substring(0, sMember.length - 1);
+          }
+        }
+        return sMember;
       }
     }
   }
@@ -65,5 +98,7 @@
       util: util
     }
   }
+
+  return util();
 
 });
