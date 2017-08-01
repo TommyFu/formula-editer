@@ -2,6 +2,7 @@
 
 import test from 'ava';
 const calculator = require('../src/formula/formulaCalculator');
+const bignumber = require('../src/lib/bignumber/bignumber.min');
 
 test('assert invalid formula', t => {
   // let aInvalidFormula = [
@@ -36,22 +37,31 @@ test('assert invalid formula', t => {
   //   t.is(prefix + calculator.calculate(aInvalidFormula[i]).isValid, prefix + false);
   // }
 
-  // t.pass();
+  t.pass();
 });
 
 test('assert valid formula', t => {
   let aValidFormula = [
     {
-      formula : '2 * (-1)',
-      value : '-2'
+      formula : '100 + 2 * 200',
+      value : '500'
     }
+    // ,
+    // {
+    //   formula : '2 * (-1)',
+    //   value : '-2'
+    // }
   ];
+
+  let context = {};
+  context.Bignumber = bignumber;
 
   let prefix;
   for (let i = 0; i < aValidFormula.length; i++) {
     prefix = "Case " + i + ". " + aValidFormula[i].formula + " -> ";
-    t.is(prefix + calculator.calculate(aValidFormula[i].formula),
-      prefix + aValidFormula[i].value);
+    debugger;
+    let res = calculator.calculate.call(context, aValidFormula[i].formula);
+    t.is(res.value, aValidFormula[i].value);
   }
 
   t.pass();

@@ -15,7 +15,7 @@
   "license": "MIT",
   "ava": {
     "files": [
-      "./src/test/*.js"
+      "./test/*.js"
     ],
     "source": [
       "**/*.{js}"
