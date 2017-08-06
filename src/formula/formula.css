@@ -53,6 +53,17 @@ body{
   border: none;
   outline: none;
 }
+.calculate-content{
+  float: left;
+  margin: 10px 0 0 20px;
+  line-height: 30px;
+  font-size: 18px;
+  width: calc(100% - 110px);
+  width: -ms-calc(100% - 110px);
+  width: -o-calc(100% - 110px);
+  width: -moz-calc(100% - 110px);
+  width: -webkit-calc(100% - 110px);
+}
 .calculate-section{
   border-top: 10px solid #C0DEED;
   width: 100%;

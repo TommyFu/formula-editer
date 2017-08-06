@@ -10,25 +10,58 @@
     return {
       _aLogicFn : [ 'and', 'or' ],
       _aFunction : [ 'if', 'round', 'power', 'abs', 'sqrt'],
+      _aMembers : [
+        { name: 'pi', value: '3.14159' },
+        { name: 'e', value: '2.71828' },
+        { name: 'gross_revenue', value: '1.5e7' },
+        { name: 'net_revenue', value: '1.23e7' },
+        { name: 'net_income', value: '10e6' },
+        { name: 'year', value: '2017' },
+        { name: 'currency1', value: '4.0' },
+        { name: 'currency2', value: '0.8' },
+      ],
       _calcFn : {
-        'round': (op) => {
-          return op.round();
+        'round': {
+          op : 'round',
+          priority : 0,
+          opNum : 1,
+          type : 'function',
+          calc: (op) => {
+            return op.round();
+          }
         },
-        'power': (op1, op2) => {
-          return op1.round(op2);
+        'power': {
+          op : 'power',
+          priority : 0,
+          opNum : 2,
+          type : 'function',
+          calc: (op1, op2) => {
+            return op1.pow(op2);
+          }
         },
-        'abs': (op) => {
-          return op.abs();
+        'abs': {
+          op : 'abs',
+          priority : 0,
+          opNum : 1,
+          type : 'function',
+          calc: (op) => {
+            return op.abs();
+          }
         },
-        'sqrt': (op) => {
-          return op.sqrt();
+        'sqrt': {
+          op : 'sqrt',
+          priority : 0,
+          opNum : 1,
+          type : 'function',
+          calc: (op) => {
+            return op.sqrt();
+          }
         }
       },
       
       REGEX : {
         member : /^([^,:;'=\[\]]+)$/,
-        memberWithBracket : /^\[[^,:;'=\[\]]+\]/,
-        memberWithBracketAndMinus : /^\-?\[[^,:;'=\[\]]+\]$/
+        memberWithBracket : /^\[[^,:;'=\[\]]+\]/
       },
 
       errMsg: {
@@ -66,7 +99,7 @@
         //final result cannot be a boolean calculation
         FORMULA_RESULT_BOOL: 'Formula computed result can NOT be boolean calculation.',
         //all clear :)
-        FORMULA_VALID: 'Va;lid Formula.',
+        FORMULA_VALID: 'Valid Formula.',
         //
         FORMULA_MEMBER_NOT_EXIST: 'Member {0} does not exist.',
         //"log(4) log(4)"
