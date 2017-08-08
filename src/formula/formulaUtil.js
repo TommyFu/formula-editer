@@ -61,7 +61,8 @@
       
       REGEX : {
         member : /^([^,:;'=\[\]]+)$/,
-        memberWithBracket : /^\[[^,:;'=\[\]]+\]/
+        memberWithBracket : /^\[[^,:;'=\[\]]+\]/,
+        endWithIf : /.*if$/i
       },
 
       errMsg: {
@@ -122,7 +123,106 @@
           }
         }
         return sMember;
+      },
+
+      formatRules : {
+        TAB : "        ",
+        SPACE : "",
+        ENTER : "\n"
+      },
+
+      formatFormula : function(sSource) {
+        let i = 0, j = 0;
+        let TAB = this.formatRules.TAB;
+        let SPACE = this.formatRules.SPACE;
+        let ENTER = this.formatRules.ENTER;
+
+        let sResult = "";
+        let iCountIf = 0;
+        let aOperatorStack = [];
+        let sTemp = "", lastChar = "", passedCharForDbg = "";
+
+        //remove blanks except those in the member []  
+        // sSource = this.removeBlanks(sSource);
+
+        for (i = 0; i < sSource.length; i++) {
+          let ch = sSource[i];
+          if (typeof ch !== "string") {
+            continue;
+          }
+          if (ch.match(/^\s$/)) { // white space
+            //blank space
+            if (ch.match(/^ $/) && sTemp !== "" && sTemp.indexOf("[") !== -1 && sTemp.indexOf("]") === -1) { //[aa bb]
+              sTemp += ch;
+            }
+            continue;
+          }
+
+          if (ch === "[") {
+            sTemp += ch;
+          } else if (ch === "]") {
+            sTemp += ch;
+            sResult += sTemp;
+            sTemp = "";
+          } else if (sTemp !== "" && sTemp.indexOf("[") !== -1 && sTemp.indexOf("]") === -1) { //member with special chars eg.[-member/%#()]
+            sTemp += ch;
+          } else if (ch === "(") {
+            aOperatorStack.push("(");
+            if (this.REGEX.endWithIf.test(sResult)) {
+              iCountIf++;
+            }
+            sResult += ch;
+          } else if (ch === ")") {
+            //---------------------tab control start---------------------
+            if (aOperatorStack[aOperatorStack.length - 1] === "(") {
+              aOperatorStack.pop();
+            } else if (iCountIf > 0 && aOperatorStack.length >= 3 &&
+              aOperatorStack[aOperatorStack.length - 1] === "," &&
+              aOperatorStack[aOperatorStack.length - 2] === "," &&
+              aOperatorStack[aOperatorStack.length - 3] === "(") {
+              for (j = 0; j < 3; j++) {
+                aOperatorStack.pop();
+              }
+              iCountIf--;
+              sResult += ENTER;
+              for (j = 0; j < iCountIf; j++) {
+                sResult += TAB;
+              }
+            } else {
+              //unmatched ()
+            }
+            //--------------------- tab control end ---------------------
+            sResult += ch;
+          } else if (ch === ",") {
+            aOperatorStack.push(",");
+            sResult += ch;
+
+            //---------------------tab control start--------------------
+            if (iCountIf > 0) {
+              sResult += ENTER;
+              for (j = 0; j < iCountIf; j++) {
+                sResult += TAB;
+              }
+            }
+            //--------------------- tab control end ---------------------
+          } else {
+            sResult += ch;
+            continue;
+          }
+
+          //save last char for negative number
+          lastChar = sSource[i];
+          //debug is easier with this variable
+          passedCharForDbg += lastChar;
+        }
+
+        if (sTemp !== "") {
+          sResult += sTemp + SPACE;
+          sTemp = "";
+        }
+        return sResult;
       }
+
     }
   }
 

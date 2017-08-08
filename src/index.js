@@ -25,9 +25,23 @@ requirejs([
       }else{
         $('.calculate-content').text(res.message);
       }
+
+      $('.format-section').css('display','none');
+      $('.calculate-section').fadeIn();
     });
 
     $('.formula-btn-format').click(() => {
+      let formula = cm.getValue().trim();
+      let res = calculator.calculate(formula, members);
+      if(res.valid){
+        res = util.formatFormula(formula);
+        $('.format-content').text(res);
+      }else{
+        $('.format-content').text(res.message);
+      }
+
+      $('.calculate-section').css('display','none');
+      $('.format-section').fadeIn();
     });
   });
 
