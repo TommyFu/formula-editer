@@ -5,6 +5,39 @@ requirejs([
 ], function(builder, calculator, util) {
   'use strict';
 
+  function addMembers(){
+    let members = util._aMembers;
+    for(let i = 0; i < members.length; i++){
+      let mem = members[i];
+      let $mem = $('<div></div>');
+      $mem.html(`[${mem.name}] = ${mem.value}`);
+      if(i % 2 === 0){
+        $mem.addClass('helps-cell-left');
+      }else{
+        $mem.addClass('helps-cell-right');
+      }
+      $mem.addClass('helps-cells');
+      $('.helps-members').append($mem);
+    }
+  }
+
+  function addFunctions(){
+    let functions = util._calcFn;
+    let k = 0;
+    for(let i in functions){
+      let fn = functions[i];
+      let $fn = $('<div></div>');
+      $fn.html(fn.op + '()');
+      if(k++ % 2 === 0){
+        $fn.addClass('helps-cell-left');
+      }else{
+        $fn.addClass('helps-cell-right');
+      }
+      $fn.addClass('helps-cells');
+      $('.helps-functions').append($fn);
+    }
+  }
+
   $(document).ready(() => {
     builder.registWebFormula();
 
@@ -15,6 +48,8 @@ requirejs([
     });
 
     builder.registerHelper([]);
+    addMembers();
+    addFunctions();
 
     let members = util._aMembers
     $('.formula-btn-calculate').click(() => {
