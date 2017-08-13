@@ -9,7 +9,7 @@
 
   let aLogicFn = util._aLogicFn;
   let BigNum = null;
-  if(window && window.BigNumber){
+  if(typeof window !== 'undefined' && window.BigNumber){
     BigNum = window.BigNumber;
   }else{
     BigNum = bigNumber;

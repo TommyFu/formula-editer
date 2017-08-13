@@ -234,9 +234,8 @@
   }
 
   if (typeof exports == "object" && typeof module == "object") { 
-    module.exports = {
-      util: util
-    }
+    debugger;
+    module.exports = util();
   }
 
   return util();

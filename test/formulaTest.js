@@ -39,7 +39,6 @@ test('assert invalid formula', t => {
   let prefix;
   for (let i = 0; i < aInvalidFormula.length; i++) {
     prefix = "Case " + i + ". " + aInvalidFormula[i] + " -> ";
-    debugger;
     let res = calculator.calculate(aInvalidFormula[i], members);
     t.is(prefix + res.valid, prefix + false);
   }
@@ -128,7 +127,6 @@ test('assert valid formula', t => {
   let prefix;
   for (let i = 0; i < aValidFormula.length; i++) {
     prefix = "Case " + i + ". " + aValidFormula[i].formula + " -> ";
-    debugger;
     let res = calculator.calculate(aValidFormula[i].formula, members);
     t.is(res.value, aValidFormula[i].value);
   }
