@@ -5,6 +5,7 @@ define(['formula/formulaUtil'], function(util) {
   let conditionsRegex = new RegExp("\\b((" + aCondition.join(")|(") + "))", 'i');
   let aFunction = util._aFunction;
   let functionsRegex = new RegExp("\\b((" + aFunction.join(")|(") + "))", 'i');
+  let _memberList = [], _functionList = [];
 
   function formulaToken(stream, state) {
     if (stream.eatSpace()) {
@@ -36,17 +37,38 @@ define(['formula/formulaUtil'], function(util) {
   }
 
   function hint(editor, options) {
-    let autoList = this._hintList
     options.completeSingle = false;
     var cur = editor.getCursor(), curLine = editor.getLine(cur.line);
     
     if (curLine.charAt(cur.ch - 1) === "[") { //"["
       return {
-        list : autoList,
+        list : _memberList,
         from : CodeMirror.Pos(cur.line, cur.ch - 1),
         to : CodeMirror.Pos(cur.line, cur.ch)
       };
     }
+
+    let res = /[a-zA-Z]+$/.exec(curLine);
+    if(res){
+      let index = res.index;
+      let word = res[0];
+      let hint = [];
+      let reg = new RegExp(`^${word}`);
+      for(let i = 0; i < _functionList.length; i++){
+        let curr = _functionList[i];
+        if(reg.test(curr)){
+          hint.push(curr);
+        }
+      }
+      if(hint.length > 0){
+        return {
+          list : hint,
+          from : CodeMirror.Pos(cur.line, cur.ch - word.length),
+          to : CodeMirror.Pos(cur.line, cur.ch)
+        };
+      }
+    }
+
   }
 
   function registWebFormula(){
@@ -67,8 +89,9 @@ define(['formula/formulaUtil'], function(util) {
     CodeMirror.defineMIME("text/x-webFormula", "webFormula");
   }
 
-  function registerHelper(hintList) {
-    this._hintList = hintList;
+  function registerHelper(memberList, functionList) {
+    _memberList = memberList;
+    _functionList = functionList;
     CodeMirror.registerHelper("hint", "webFormula", hint);
   }
   

@@ -5,6 +5,46 @@ requirejs([
 ], function(builder, calculator, util) {
   'use strict';
 
+  let cm;
+  $(document).ready(() => {
+    let members = util._aMembers;
+    builder.registWebFormula();
+    builder.registerHelper(memberNameArr(members), fnNameArr(util._calcFn));
+
+    let myTextarea = document.getElementById("formula-editer");
+    cm = CodeMirror.fromTextArea(myTextarea, {
+      lineNumbers: false,
+      mode: "webFormula"
+    });
+
+    //auto-hint
+    cm.on("keyup", function (myCM, event) {
+      if (!myCM.state.completionActive && event.keyCode != 13) {
+        CodeMirror.commands.autocomplete(myCM, null, {completeSingle: false});
+      }
+    });
+
+    addMembers();
+    addFunctions();
+    bindEvents(members);
+  });
+
+  function memberNameArr(list){
+    let arr = [];
+    for(let i = 0; i < list.length; i++){
+      arr.push(`[${list[i].name}]`);
+    }
+    return arr;
+  }
+
+  function fnNameArr(dict){
+    let arr = [];
+    for(let i in dict){
+      arr.push(i);
+    }
+    return arr;
+  }
+
   function addMembers(){
     let members = util._aMembers;
     for(let i = 0; i < members.length; i++){
@@ -38,21 +78,8 @@ requirejs([
     }
   }
 
-  $(document).ready(() => {
-    builder.registWebFormula();
-
-    let myTextarea = document.getElementById("formula-editer");
-    let cm = CodeMirror.fromTextArea(myTextarea, {
-      lineNumbers: false,
-      mode: "webFormula"
-    });
-
-    builder.registerHelper([]);
-    addMembers();
-    addFunctions();
-
-    let members = util._aMembers
-    $('.formula-btn-calculate').click(() => {
+  function bindEvents(members){
+    $('.formula-btn-calculate').click(() => {;
       let formula = cm.getValue().trim();
       let res = calculator.calculate(formula, members);
       if(res.valid){
@@ -78,6 +105,6 @@ requirejs([
       $('.calculate-section').css('display','none');
       $('.format-section').fadeIn();
     });
-  });
+  }
 
 });

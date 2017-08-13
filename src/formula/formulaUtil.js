@@ -140,6 +140,7 @@
         let sResult = "";
         let iCountIf = 0;
         let aOperatorStack = [];
+        let aFunctionSrack = [];
         let sTemp = "", lastChar = "", passedCharForDbg = "";
 
         //remove blanks except those in the member []  
@@ -170,6 +171,9 @@
             aOperatorStack.push("(");
             if (this.REGEX.endWithIf.test(sResult)) {
               iCountIf++;
+              aFunctionSrack.push('if');
+            }else{
+              aFunctionSrack.push('other');
             }
             sResult += ch;
           } else if (ch === ")") {
@@ -188,17 +192,20 @@
               for (j = 0; j < iCountIf; j++) {
                 sResult += TAB;
               }
-            } else {
-              //unmatched ()
+            } else { //function(,)
+              aOperatorStack.pop();
+              aOperatorStack.pop();
             }
+            aFunctionSrack.pop();
             //--------------------- tab control end ---------------------
             sResult += ch;
           } else if (ch === ",") {
             aOperatorStack.push(",");
             sResult += ch;
-
+            
             //---------------------tab control start--------------------
-            if (iCountIf > 0) {
+            if (iCountIf > 0 && aFunctionSrack.length > 0
+              && aFunctionSrack[aFunctionSrack.length - 1] === 'if') {
               sResult += ENTER;
               for (j = 0; j < iCountIf; j++) {
                 sResult += TAB;
