@@ -13,9 +13,6 @@
       _aMembers : [
         { name: 'pi', value: '3.14159' },
         { name: 'e', value: '2.71828' },
-        { name: 'gross_revenue', value: '150000' },
-        { name: 'net_revenue', value: '123456' },
-        { name: 'net_income', value: '100000' },
         { name: 'year', value: '2017' },
         { name: 'currency1', value: '4.0' },
         { name: 'currency2', value: '0.8' },
