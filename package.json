@@ -8,8 +8,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "requirejs": "^2.3.4",
-    "ava": "^0.20.0"
+    "ava": "^0.25.0",
+    "requirejs": "^2.3.5"
   },
   "author": "liok3187@gmail.com",
   "license": "MIT",
